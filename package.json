@@ -1,0 +1,32 @@
+{
+  "name": "pebblebase",
+  "version": "1.0.0",
+  "description": "The Pebble Wireless website.",
+  "main": "pebblebase",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node pebblebase.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mosshide/pebblebase.git"
+  },
+  "keywords": [
+    "pebblewireless",
+    "pebble",
+    "wireless",
+    "web",
+    "site",
+    "website"
+  ],
+  "author": "Pebble Wireless Webmaster",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/Mosshide/loveinclcbase/issues"
+  },
+  "homepage": "https://github.com/Mosshide/loveinclcbase#readme",
+  "dependencies": {
+    "notherbase-fs": "^3.5.0"
+  },
+  "type": "module"
+}

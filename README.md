@@ -1,2 +1,2 @@
-# pebblewireless
+# pebblebase
 Pebble Wireless Website
