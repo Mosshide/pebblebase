@@ -1,0 +1,14 @@
+/* The product is called the pebble so colors should possibly be stone themed.  */
+:root {
+
+}
+
+body {
+
+}
+
+main {
+    position: relative;
+    left: 0;
+    top: 0;
+}

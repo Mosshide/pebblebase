@@ -1,0 +1,93 @@
+<style>
+    <%- include("./styles/index.css") -%>
+</style>
+
+<h1 class="title" id="aj">The Pebble</h1>
+
+<p>
+    An intro talking about the device.
+    &lt; 10ms delay at 1080p.
+</p>
+<p>
+    im hoping to make each case unique
+</p>
+<p>
+    Stuff like it's better because it gets rid of 
+    cable clutter, makes it wireless just like a mouse and keyboard, the pebble will 
+    have a unique case that is like a pebble
+</p>
+<p>
+    small slideshow of examples (maybe have AI create the images?)
+</p>
+
+<div class="unanswered">
+    <h2>Are you interested in The Pebble?</h2>
+    <button id="yes">yes</button>
+    <button id="not-really">not really</button>
+</div>
+<div class="if-yes invisible">
+    <h3>Glad to hear it!</h3>
+    <h3>Would you like to be added to the waitlist?</h3>
+    <input type="email" placeholder="email">
+    <button>Submit</button>
+</div>
+<div class="if-not-really invisible">
+    <h3>Thank you for sharing with us.</h3>
+    <h3>What would make The Pebble worth buying to you?</h3>
+    <textarea></textarea>
+    <button>Submit</button>
+</div>
+<p class="alert"></p>
+
+<script>
+    // when the yes button is clicked, show the yes div
+    // and hide the unanswered div and the not-really div
+    $("#yes").click(() => {
+        $(".if-yes").removeClass("invisible");
+        $(".unanswered").addClass("invisible");
+        $(".if-not-really").addClass("invisible");
+    });
+
+    // when the not-really button is clicked, show the not-really div
+    // and hide the unanswered div and the yes div
+    $("#not-really").click(() => {
+        $(".if-not-really").removeClass("invisible");
+        $(".unanswered").addClass("invisible");
+        $(".if-yes").addClass("invisible");
+    });
+
+    // when the submit button in the if-yes div is clicked
+    // hide the if-yes div and
+    // get the email and do the server script in base
+    // sending the email to the waitlist
+    // and edit the alert's text to say that the email was submitted
+    $(".if-yes button").click(() => {
+        let email = $(".if-yes input").val();
+        $(".if-yes").addClass("invisible");
+        base.do("add-to-waitlist", { route: "/the-front/scripts", email: email }).then((res) => {
+            if (res.status == "success") $(".alert").text("Email submitted to waitlist. Thank you!");
+            else {
+                $(".alert").text("There was an error submitting your email. Please try again later.");
+                $(".if-yes").removeClass("invisible");
+            }
+        });
+    });
+
+    // when the submit button in the if-not-really div is clicked
+    // hide the if-not-really div and
+    // get the textarea and do the server script in base
+    // sending the textarea to the feedback
+    // and edit the alert's text to say that the feedback was submitted
+    $(".if-not-really button").click(() => {
+        let feedback = $(".if-not-really textarea").val();
+        $(".if-not-really").addClass("invisible");
+        base.do("add-feedback", { route: "/the-front/scripts", feedback: feedback }).then((res) => {
+            console.log(res);
+            if (res.status == "success") $(".alert").text("Feedback submitted. Thank you!");
+            else {
+                $(".alert").text("There was an error submitting your feedback. Please try again later.");
+                $(".if-not-really").removeClass("invisible");
+            }
+        });
+    });
+</script>

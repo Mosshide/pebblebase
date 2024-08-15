@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pebble</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <main>
+        <% if (user && user.memory.data.authLevels.includes("TPAD")) { %>
+            <h1 class="title" id="aj">The Pebble Admin Page</h1>
+
+            <h2>Waitlist</h2>
+            <div class="meta" id="waitlist"></div>
+    
+            <h2>Feedback</h2>
+            <div class="meta" id="feedback"></div>
+        <% } else { %>
+            <div class="login form">
+                <label>
+                    Organization Email: <input type="text" id="email">
+                </label>
+                <label>
+                    Password: <input type="password" id="password">
+                    <input type="checkbox" id="unhide" onclick="tracker.toggleShowPassword()"> Show Password
+                </label>
+                <button onclick="tracker.attemptLogin()">Login</button>
+            </div>
+        <% } %>
+    
+        <button class="logout invisible" onclick="tracker.logout()">Logout</button>
+        <p id="alert"></p>
+       
+
+        <p class="alert"></p>
+    </main>
+
+    <script src="/js/base.js"></script>
+    <script src="/js/util/element.js"></script>
+    <script src="/js/util/buttons.js"></script>
+    <script src="/js/util/search-box.js"></script>
+    <script src="/js/util/browser.js"></script>
+    <script>
+        let base = new Base();
+
+        <% if (user && user.memory.data.authLevels.includes("TPAD")) { %>
+            const metaWaitlist = new MetaBrowser({ id: "waitlist", header: "Waitlist" });
+            metaWaitlist.render();
+            metaWaitlist.addService("the-pebble-waitlist", {
+                fields: new NBField({
+                name: "waitlist",
+                label: "Waitlist: ",
+                placeholder: "Nobody"
+            }, [
+                    new NBField({
+                        name: "name",
+                        label: "Email: ",
+                        placeholder: "no email",
+                        type: "string"
+                    }),
+                    new NBField({
+                        name: "notes",
+                        label: "Notes: ",
+                        placeholder: "",
+                        type: "long-string"
+                    }),
+                    new NBField({
+                        name: "checked",
+                        label: "Checked: ",
+                        placeholder: false,
+                        type: "boolean"
+                    })
+                ]),
+                editable: true,
+                multiple: true,
+                toLoad: async () => {
+                    let res = await base.loadAll("the-pebble-waitlist", "global");
+                    console.log(res);
+                    return res;
+                },
+                toSave: async (item, deleting) => {
+                    return await base.do("save-waitlist", { item, deleting, route: "/pages/the-pebble-admin/scripts"});
+                }
+            });
+
+            const metaFeedback = new MetaBrowser({ id: "feedback", header: "Feedback" });
+            metaFeedback.render();
+            metaFeedback.addService("the-pebble-feedback", {
+                fields: new NBField({
+                name: "feedback",
+                label: "Feedback: ",
+                placeholder: "None"
+            }, [
+                    new NBField({
+                        name: "name",
+                        label: "Name: ",
+                        placeholder: "No Name",
+                        type: "string"
+                    }),
+                    new NBField({
+                        name: "content",
+                        label: "Feedback: ",
+                        placeholder: "no feedback",
+                        type: "long-string"
+                    }),
+                    new NBField({
+                        name: "notes",
+                        label: "Notes: ",
+                        placeholder: "",
+                        type: "long-string"
+                    }),
+                    new NBField({
+                        name: "checked",
+                        label: "Checked: ",
+                        placeholder: false,
+                        type: "boolean"
+                    })
+                ]),
+                editable: true,
+                multiple: true,
+                toLoad: async () => {
+                    let res = await base.loadAll("the-pebble-feedback", "global");
+                    console.log(res);
+                    return res;
+                },
+                toSave: async (item, deleting) => {
+                    return await base.do("save-feedback", { item, deleting, route: "/pages/the-pebble-admin/scripts"});
+                }
+            });
+            
+        <% } %>
+
+        class Tracker {
+            constructor() {
+                //general
+                this.$alert = $("#alert");
+                this.$logout = $(".logout");
+
+                //login
+                this.$loginForm = $(".login.form");
+                this.$email = $("#email");
+                this.$password = $("#password");
+
+                <% if (user) { %>
+                    this.$logout.removeClass("invisible");
+                <% } %>
+            }
+
+            toggleShowPassword() {
+                let hidden = this.$password.attr("type");
+                if (hidden === "password") this.$password.attr("type", "text");
+                else this.$password.attr("type", "password");
+            }
+
+            attemptLogin = async () => {
+                let response = await base.attemptLogin(this.$email.val(), this.$password.val());
+
+                if (response.status === "success") {
+                    location.reload();
+                }
+                else {
+                    this.$alert.text(response.message);
+                }
+            }
+
+            logout = async () => {
+                let response = await base.logout();
+
+                if (response.status === "success") {
+                    location.reload();
+                }
+                else {
+                    this.$alert.text(response.message);
+                }
+            }
+        }
+
+        let tracker = new Tracker();
+    </script>
+</body>
+</html>
