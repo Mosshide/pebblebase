@@ -1,0 +1,8 @@
+.buttons {
+    width: var(--fillFromMargin);
+    margin: var(--margin);
+}
+
+.buttons h4 {
+    width: 100%;
+}

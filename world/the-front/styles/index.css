@@ -4,11 +4,36 @@
 }
 
 body {
-
+    background: white;
 }
 
 main {
     position: relative;
     left: 0;
     top: 0;
+    background: rgb(0, 0, 0);
+    box-shadow: none;
+    border-radius: 0 0 0 0;
+    width: 100%;
+    max-width: initial;
+    height: 100%;
+}
+
+footer {
+    position: initial;
+    background: rgba(0, 0, 0, 0.589);
+    box-shadow: none;
+    border-radius: 0 0 0 0;
+    width: 100%;
+    max-width: initial;
+    height: 7%;
+    display: none;
+}
+
+.view-toggle {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    
 }

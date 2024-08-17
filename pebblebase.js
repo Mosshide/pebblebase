@@ -5,6 +5,6 @@ const __dirname = fileURLToPath(new URL('./world', import.meta.url));
 import nkjvBible from "./globals/NKJV.js";
 
 const loveinclcFS = new NotherBaseFS(__dirname, { nkjvBible }, { 
-    siteTitle: "Love INC of Lewis County",
+    siteTitle: "Pebble Wireless",
     // favicon: fileURLToPath(new URL('./public/img/favicon.ico', import.meta.url)),
  });
