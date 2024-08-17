@@ -1,0 +1,47 @@
+.bible-viewer {
+    height: 40vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+.bible-viewer h4 {
+    height: 30px;
+}
+
+.bible-viewer .bible-text {
+    height: calc(100% - 90px);
+    overflow: auto;
+}
+
+.bible-viewer .bible-text.no-ui {
+    height: 100%;
+}
+
+.bible-viewer .bible-ui {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.bible-viewer .bible-ui * {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.bible-viewer .bible-ui>button {
+    width: 25%;
+}
+
+@media screen and (min-width: 570px) {
+    main.full-view .bible-viewer {
+        width: 40%;
+        max-width: 50%;
+        height: 100%;
+    }
+}

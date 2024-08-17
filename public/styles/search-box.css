@@ -1,0 +1,94 @@
+.search-box {
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    margin: 0;
+    border: none;
+    background: none;
+    align-content: flex-start;
+    gap: 0;
+    padding: 1px;
+    overflow: auto;
+    opacity: 1;
+    transition: all 0.3s ease-out;
+}
+
+.floating .search-box {
+    height: calc(100% - 50px);
+}
+
+.search input {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: var(--standardBorder);
+}
+
+.search-box .selector {
+    height: auto;
+    overflow: auto;
+    width: 100%;
+    margin: 0;
+    align-content: flex-start;
+    border: none;
+    padding: 0;
+    background: none;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.search-box .filters {
+    width: 100%;
+    max-height: 50vh;
+    background: var(--bgColor);
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-bottom: 1px dashed var(--textColor);
+    padding: var(--padding);
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.search-box .filters.open {
+    max-height: 40vh;
+    transition: max-height 0.3s ease-out;
+}
+
+.search-box .filters div {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 5px;
+}
+
+.search-box .filters div h4 {
+    border: none;
+    width: auto;
+}
+
+.search-box .filters div input {
+    width: 100%;
+    margin: 0;
+}
+
+.search-box .selector>li {
+    border: none;
+    padding: var(--padding);
+    height: auto;
+    flex-wrap: wrap;
+    transition: all 0.3s ease-out;
+}
+
+.search-box .selector>li.disabled {
+    cursor: initial;
+    background: var(--bgColor);
+}
+
+.search-box .buttons {
+    border: none;
+    background: none;
+    top: calc(-1 * var(--tabMargin));
+}
